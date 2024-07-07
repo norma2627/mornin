@@ -1,0 +1,21 @@
+# Discord bot
+name: Mornin
+on: 
+  workflow_dispatch:
+  # UTC expression is required
+  # Here is JST 9:00 every Day
+  schedule: 
+    - cron: '0 0 * * *'
+jobs:
+  Notify:
+    name: Mornin
+    runs-on: ubuntu-latest
+    steps: 
+      - name: notify
+        run: |
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d '{
+            "content": "おはよう☀️☀️☀️今日も元気に過ごそう！！！"
+          }' \
+          ${{ secrets.DISCORD_MORNIN}}
