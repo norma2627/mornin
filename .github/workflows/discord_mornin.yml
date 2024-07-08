@@ -13,11 +13,16 @@ jobs:
     steps: 
       - name: Check repository
         uses: actions/checkout@v2
+
+      - name: Install command
+        run: sudo apt-get update && sudo apt-get install -y coreutils
+
       - name: Select a message
         id: select_message
         run: |
           message=$(gshuf -n 1 message.txt)
           echo "::set-output name=message::$message"
+
       - name: Notify
         run: |
           curl -H "Content-Type: application/json" \
