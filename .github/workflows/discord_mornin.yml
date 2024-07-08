@@ -20,7 +20,7 @@ jobs:
       - name: Select a message
         id: select_message
         run: |
-          message=$(gshuf -n 1 message.txt)
+          message=$(shuf -n 1 message.txt)
           echo "::set-output name=message::$message"
 
       - name: Notify
