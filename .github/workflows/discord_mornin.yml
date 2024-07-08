@@ -11,11 +11,18 @@ jobs:
     name: Mornin
     runs-on: ubuntu-latest
     steps: 
-      - name: notify
+      - name: Check repository
+        uses: actions/checkout@v2
+      - name: Select a message
+        id: select_message
+        run: |
+          message=$(gshuf -n 1 message.txt)
+          echo "::set-output name=message::$message"
+      - name: Notify
         run: |
           curl -H "Content-Type: application/json" \
           -X POST \
           -d '{
-            "content": "おはよう☀️☀️☀️今日も元気に過ごそう！！！"
+            "content": "${{ steps.select_message.outputs.message }}"
           }' \
           ${{ secrets.DISCORD_MORNIN}}
